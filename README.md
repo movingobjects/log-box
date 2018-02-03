@@ -14,7 +14,7 @@ const logBox = require('log-box');
 
 logBox('OK, great.');
 
-logBox('Woah!, {
+logBox('Woah!', {
   style: 'round',
   color: 'black'
   textColor: 'black',
@@ -70,3 +70,5 @@ Sets the weight of the border and message text (_where supported_).
 ### padding
 Adds extra space between the text and the border. A vertical line of padding is added every 3 spaces of padding.
 
+- Type: `number`
+- Default: `0`
