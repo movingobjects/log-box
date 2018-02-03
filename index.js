@@ -1,5 +1,7 @@
 
-const chalk   = require('chalk');
+const chalk     = require('chalk'),
+      pkgConf   = require('pkg-conf'),
+      pkgConfig = pkgConf.sync('log-box');
 
 const styles = {
   single: [ '─', '│', '┌', '┐', '└', '┘' ],
@@ -28,31 +30,18 @@ const defaultOpts = {
   bold: false
 }
 
-const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
+const mergeOpts = (inline, pkg, defaults) => {
 
-  let c = chalk;
+  let opts = { };
 
-  if (color) {
-    try {
-      c   = (color.charAt(0) == '#') ? c.hex(color) : c.keyword(color);
-    } catch (error) {
-      throw new Error(`'${color}' is not a valid color`);
-    }
-  }
+  if (defaults) opts = Object.assign(opts, defaults);
+  if (pkg)      opts = Object.assign(opts, pkg);
+  if (inline)   opts = Object.assign(opts, inline);
 
-  if (bgColor) {
-    try {
-       c = (bgColor.charAt(0) == '#') ? c.bgHex(bgColor) : c.bgKeyword(bgColor);
-    } catch (error) {
-      throw new Error(`'${bgColor}' is not a valid color`);
-    }
-  }
+  opts.padding = normSpacing(opts.padding, defaultOpts.padding);
+  opts.margin  = normSpacing(opts.margin,  defaultOpts.margin);
 
-  if (bold) {
-    c = c.bold;
-  }
-
-  return c;
+  return opts;
 
 }
 
@@ -97,6 +86,34 @@ const normSpacing = (spacing, defaults) => {
 
 }
 
+const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
+
+  let c = chalk;
+
+  if (color) {
+    try {
+      c   = (color.charAt(0) == '#') ? c.hex(color) : c.keyword(color);
+    } catch (error) {
+      throw new Error(`'${color}' is not a valid color`);
+    }
+  }
+
+  if (bgColor) {
+    try {
+       c = (bgColor.charAt(0) == '#') ? c.bgHex(bgColor) : c.bgKeyword(bgColor);
+    } catch (error) {
+      throw new Error(`'${bgColor}' is not a valid color`);
+    }
+  }
+
+  if (bold) {
+    c = c.bold;
+  }
+
+  return c;
+
+}
+
 const createOutput = (msg, opts) => {
 
     let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
@@ -123,15 +140,10 @@ const createOutput = (msg, opts) => {
 
 }
 
-module.exports = (msg, opts) => {
+module.exports = (msg, inlineOpts) => {
 
-  let defaults         = Object.assign({}, defaultOpts);
-
-  let optsNorm         = Object.assign(defaults, opts);
-      optsNorm.padding = normSpacing(optsNorm.padding, defaultOpts.padding),
-      optsNorm.margin  = normSpacing(optsNorm.margin, defaultOpts.margin);
-
-  let output           = createOutput(msg, optsNorm);
+  let opts   = mergeOpts(inlineOpts, pkgConfig.default, defaultOpts),
+      output = createOutput(msg, opts);
 
   console.log(output);
 
