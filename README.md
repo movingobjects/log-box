@@ -1,5 +1,5 @@
 # Log box
-Generates a nicely styled box around text in the command line
+Logs console messages inside a nice box
 
 
 ## Install
