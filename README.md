@@ -79,10 +79,28 @@ Sets vertical space (lines) between the text and the border.
 - Type: `number`
 - Default: `0`
 
-### padding
-Convenience function for setting `padH` and `padV` values with one value.
+### marginTop
+Sets the number of lines of spacing above the box.
 
-`padH` is set to one more than the value, and `padV` is set to a rounded-down third of the value. Thus, `padding: 0` will use the default settings listed above.
+- Type: `number`
+- Default: `0`
+
+### marginBottom
+Sets the number of lines of spacing below the box.
+
+- Type: `number`
+- Default: `1`
+
+### padding
+Convenience function for setting `padH` and `padV` with one value, as follows:
+
+`padH` is set to one more than the value, and `padV` is set to a rounded-down third of the value. Thus, `padding: 0` is equivalent to the default settings for `padH` and `padV`.
+
+- Type: `number`
+- Default: `undefined`
+
+### margin
+Convenience function for setting `marginTop` and `marginBottom` to the same value.
 
 - Type: `number`
 - Default: `undefined`

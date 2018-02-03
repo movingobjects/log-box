@@ -12,6 +12,8 @@ const defaultOpts = {
   style: 'single',
   padH: 1,
   padV: 0,
+  marginTop: 0,
+  marginBottom: 1,
   color: '#00ffff',
   textColor: 'white',
   bgColor: undefined,
@@ -55,23 +57,31 @@ module.exports = (msg, opts) => {
     opts.padV = Math.max(0, Math.floor(opts.padding / 3));
   }
 
+  if (opts.margin) {
+    opts.marginTop    = Math.max(0, opts.margin);
+    opts.marginBottom = Math.max(0, opts.margin);
+  }
+
   let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
 
-  let chalkEdge  = setChalk(opts.color, opts.bgColor, opts.bold),
-      chalkText  = setChalk(opts.textColor, opts.bgColor, opts.bold);
+  let chalkEdge = setChalk(opts.color, opts.bgColor, opts.bold),
+      chalkText = setChalk(opts.textColor, opts.bgColor, opts.bold);
 
-  let midW       = msg.length + (opts.padH * 2),
-      lineH      = _h.repeat(midW),
-      top        = `${_tl}${lineH}${_tr}`,
-      btm        = `${_bl}${lineH}${_br}`,
-      left       = _v + ` `.repeat(opts.padH),
-      right      = ` `.repeat(opts.padH) + _v,
-      vSpacer    = `${_v}${' '.repeat(midW)}${_v}\n`.repeat(opts.padV);
+  let midW  = msg.length + (opts.padH * 2),
+      lineH = _h.repeat(midW),
+      top   = `${_tl}${lineH}${_tr}`,
+      btm   = `${_bl}${lineH}${_br}`,
+      left  = _v + ` `.repeat(opts.padH),
+      right = ` `.repeat(opts.padH) + _v;
 
-  let outputBefore = chalkEdge(`${top}\n${vSpacer}${left}`),
+  let spacingInner  = `${_v}${' '.repeat(midW)}${_v}\n`.repeat(opts.padV);
+      spacingTop    = `\n`.repeat(opts.marginTop);
+      spacingBottom = `\n`.repeat(opts.marginBottom);
+
+  let outputBefore = chalkEdge(`${top}\n${spacingInner}${left}`),
       outputMsg    = chalkText(msg),
-      outputAfter  = chalkEdge(`${right}\n${vSpacer}${btm}`);
+      outputAfter  = chalkEdge(`${right}\n${spacingInner}${btm}`);
 
-  console.log(outputBefore + outputMsg + outputAfter);
+  console.log(spacingTop + outputBefore + outputMsg + outputAfter + spacingBottom);
 
 }
