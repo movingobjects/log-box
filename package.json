@@ -1,6 +1,6 @@
 {
   "name": "log-box",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Logs console messages inside a nice box",
   "author": "Scott Thiessen (http://varyd.io)",
   "license": "ISC",

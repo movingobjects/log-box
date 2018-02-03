@@ -99,7 +99,7 @@ const normSpacing = (spacing, defaults) => {
 
 module.exports = (msg, opts) => {
 
-  opts     = Object.assign(defaultOpts, opts);
+  opts = Object.assign(Object.assign({}, defaultOpts), opts);
 
   let padding = normSpacing(opts.padding, defaultOpts.padding),
       margin  = normSpacing(opts.margin, defaultOpts.margin);
