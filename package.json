@@ -1,6 +1,6 @@
 {
   "name": "log-box",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Generate box around text in the command line",
   "author": "Scott Thiessen (http://varyd.io)",
   "license": "ISC",

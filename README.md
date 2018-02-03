@@ -1,5 +1,5 @@
 # Log box
-Generate box around text in the command line
+Generates a nicely styled box around text in the command line
 
 ## Install
 
@@ -16,7 +16,7 @@ logBox('OK, great.');
 
 logBox('Woah!', {
   style: 'round',
-  color: 'black'
+  color: 'black',
   textColor: 'black',
   bgColor: '#ccff00',
   bold: true,
@@ -36,6 +36,7 @@ Sets the border style to the box.
     - `"thick"`
     - `"round"`
     - `"double"`
+- Default: `"single"`
 
 ### color
 Sets the border color of the box.
