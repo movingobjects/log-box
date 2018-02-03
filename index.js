@@ -1,14 +1,16 @@
 
-const chalk = require('chalk');
+const chalk     = require('chalk'),
+      pkgConf   = require('pkg-conf'),
+      pkgConfig = pkgConf.sync('log-box');
 
-const styles = {
+const STYLES = Object.freeze({
   single: [ '─', '│', '┌', '┐', '└', '┘' ],
   thick:  [ '━', '┃', '┏', '┓', '┗', '┛' ],
   round:  [ '─', '│', '╭', '╮', '╰', '╯' ],
   double: [ '═', '║', '╔', '╗', '╚', '╝' ]
-}
+});
 
-const defaultOpts = {
+const DEFAULT_OPTS = Object.freeze({
   style: 'single',
   padding: {
     top: 0,
@@ -26,33 +28,31 @@ const defaultOpts = {
   textColor: 'white',
   bgColor: undefined,
   bold: false
-}
+});
 
-const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
+const processOpts = (inlineOpts) => {
 
-  let c = chalk;
+  let opts = { };
 
-  if (color) {
-    try {
-      c   = (color.charAt(0) == '#') ? c.hex(color) : c.keyword(color);
-    } catch (error) {
-      throw new Error(`'${color}' is not a valid color`);
+  opts = Object.assign(opts, DEFAULT_OPTS);
+
+  if (typeof inlineOpts === 'string') {
+    if (pkgConfig && pkgConfig[inlineOpts]) {
+      opts = Object.assign(opts, pkgConfig[inlineOpts]);
+    }
+  } else {
+    if (pkgConfig && pkgConfig.default) {
+      opts = Object.assign(opts, pkgConfig.default);
+    }
+    if (inlineOpts) {
+      opts = Object.assign(opts, inlineOpts);
     }
   }
 
-  if (bgColor) {
-    try {
-       c = (bgColor.charAt(0) == '#') ? c.bgHex(bgColor) : c.bgKeyword(bgColor);
-    } catch (error) {
-      throw new Error(`'${bgColor}' is not a valid color`);
-    }
-  }
+  opts.padding = normSpacing(opts.padding, DEFAULT_OPTS.padding);
+  opts.margin  = normSpacing(opts.margin,  DEFAULT_OPTS.margin);
 
-  if (bold) {
-    c = c.bold;
-  }
-
-  return c;
+  return opts;
 
 }
 
@@ -97,33 +97,65 @@ const normSpacing = (spacing, defaults) => {
 
 }
 
-module.exports = (msg, opts) => {
+const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
 
-  opts = Object.assign(Object.assign({}, defaultOpts), opts);
+  let c = chalk;
 
-  let padding = normSpacing(opts.padding, defaultOpts.padding),
-      margin  = normSpacing(opts.margin, defaultOpts.margin);
+  if (color) {
+    try {
+      c   = (color.charAt(0) == '#') ? c.hex(color) : c.keyword(color);
+    } catch (error) {
+      throw new Error(`'${color}' is not a valid color`);
+    }
+  }
 
-  let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
+  if (bgColor) {
+    try {
+       c = (bgColor.charAt(0) == '#') ? c.bgHex(bgColor) : c.bgKeyword(bgColor);
+    } catch (error) {
+      throw new Error(`'${bgColor}' is not a valid color`);
+    }
+  }
 
-  let chalkEdge = setChalk(opts.color, opts.bgColor, opts.bold),
-      chalkText = setChalk(opts.textColor, opts.bgColor, opts.bold);
+  if (bold) {
+    c = c.bold;
+  }
 
-  let iw  = padding.left + msg.length + padding.right;
+  return c;
 
-  let mt  = '\n'.repeat(margin.top),
-      mb  = '\n'.repeat(margin.bottom),
-      mr  = ' '.repeat(margin.right),
-      ml  = ' '.repeat(margin.left),
-      pr  = ' '.repeat(padding.right),
-      pl  = ' '.repeat(padding.left);
+}
 
-  let lt  = (ml + chalkEdge(_tl + _h.repeat(iw) + _tr) + mr + '\n'),
-      lit = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(padding.top),
-      lm  = (ml + chalkEdge(_v + pl) + chalkText(msg) + chalkEdge(pr + _v) + mr + '\n'),
-      lib = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(padding.bottom),
-      lb  = (ml + chalkEdge(_bl + _h.repeat(iw) + _br) + mr);
+const createOutput = (msg, opts) => {
 
-  console.log(mt + lt + lit + lm + lib + lb + mb);
+    let [ _h, _v, _tl, _tr, _bl, _br ] = STYLES[opts.style] || STYLES.default;
+
+    let chalkEdge = setChalk(opts.color, opts.bgColor, opts.bold),
+        chalkText = setChalk(opts.textColor, opts.bgColor, opts.bold);
+
+    let iw  = opts.padding.left + msg.length + opts.padding.right;
+
+    let mt  = '\n'.repeat(opts.margin.top),
+        mb  = '\n'.repeat(opts.margin.bottom),
+        mr  = ' '.repeat(opts.margin.right),
+        ml  = ' '.repeat(opts.margin.left),
+        pr  = ' '.repeat(opts.padding.right),
+        pl  = ' '.repeat(opts.padding.left);
+
+    let lt  = (ml + chalkEdge(_tl + _h.repeat(iw) + _tr) + mr + '\n'),
+        lit = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(opts.padding.top),
+        lm  = (ml + chalkEdge(_v + pl) + chalkText(msg) + chalkEdge(pr + _v) + mr + '\n'),
+        lib = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(opts.padding.bottom),
+        lb  = (ml + chalkEdge(_bl + _h.repeat(iw) + _br) + mr);
+
+    return mt + lt + lit + lm + lib + lb + mb;
+
+}
+
+module.exports = (msg, inlineOpts) => {
+
+  let opts   = processOpts(inlineOpts),
+      output = createOutput(msg, opts);
+
+  console.log(output);
 
 }

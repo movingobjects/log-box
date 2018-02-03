@@ -11,12 +11,20 @@ $ npm install log-box
 
 ## Usage
 
+### Default options
+
 ```js
 const logBox = require('log-box');
 
-logBox('OK, great.');
+logBox('Yes.');
+```
 
-logBox('Wooaah!', {
+### Inline options
+
+```js
+const logBox = require('log-box');
+
+logBox('Oh, very nice!', {
   style: 'round',
   color: 'black',
   textColor: 'black',
@@ -30,8 +38,46 @@ logBox('Wooaah!', {
     bottom: 10
   }
 });
+```
+
+### Configuration in `package.json`
+
+`package.json`:
+
+```js
+{
+  "name": "your-project",
+  "version": "0.1.0",
+  ...
+  "log-box": {
+    "default": {
+      "style": "round"
+    },
+    "exampleA": {
+      "color": "#90f"
+    },
+    "exampleB": {
+      "style": "thick",
+      "bold": true,
+      "color": "black",
+      "textColor": "black",
+      "bgColor": "red"
+    }
+  }
+}
+```
+
+```js
+const logBox = require('log-box');
+
+// Shows "default" setting from package.json
+logBox('Impressive!');
+
+// Shows "exampleB" setting from package.json
+logBox('Quite good!', 'exampleB');
 
 ```
+
 
 
 ## Options
