@@ -27,7 +27,9 @@ logBox('Woah!', {
 
 ## Options
 
-### style
+### Border style
+
+#### style
 Sets the border style to the box.
 
 - Type: `string`
@@ -38,7 +40,10 @@ Sets the border style to the box.
     - `"double"`
 - Default: `"single"`
 
-### color
+
+### Color
+
+#### color
 Sets the border color of the box.
 
 - Type: `string`
@@ -47,51 +52,48 @@ Sets the border color of the box.
     - Valid color keyword, within [CSS Colors Level 4 spec](https://drafts.csswg.org/css-color/#named-colors)
 - Default: `"cyan"`
 
-### textColor
+#### textColor
 Sets the color message text.
 
 - Type: `string`
 - Allowed values: same as [color](#color)
 - Default: `"white"`
 
-### bgColor
+#### bgColor
 Sets the background color of entire box area.
 
 - Type: `string`
 - Allowed values: same as [color](#color)
 - Default: `undefined` *(no background color)*
 
-### bold
-Sets the weight of the border and message text (_where supported_).
 
-- Type: `boolean`
-- Default: `false`
+### Spacing
 
-### padH
+#### padH
 Sets horizontal space (characters) between the text and the border.
 
 - Type: `number`
 - Default: `1`
 
-### padV
+#### padV
 Sets vertical space (lines) between the text and the border.
 
 - Type: `number`
 - Default: `0`
 
-### marginTop
+#### marginTop
 Sets the number of lines of spacing above the box.
 
 - Type: `number`
 - Default: `0`
 
-### marginBottom
+#### marginBottom
 Sets the number of lines of spacing below the box.
 
 - Type: `number`
 - Default: `1`
 
-### padding
+#### padding
 Convenience function for setting `padH` and `padV` with one value, as follows:
 
 `padH` is set to one more than the value, and `padV` is set to a rounded-down third of the value. Thus, `padding: 0` is equivalent to the default settings for `padH` and `padV`.
@@ -99,8 +101,17 @@ Convenience function for setting `padH` and `padV` with one value, as follows:
 - Type: `number`
 - Default: `undefined`
 
-### margin
+#### margin
 Convenience function for setting `marginTop` and `marginBottom` to the same value.
 
 - Type: `number`
 - Default: `undefined`
+
+
+### Other styles
+
+#### bold
+Sets the weight of the border and message text (_where supported_).
+
+- Type: `boolean`
+- Default: `false`
