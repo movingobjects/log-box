@@ -10,7 +10,8 @@ const styles = {
 
 const defaultOpts = {
   style: 'single',
-  padding: 0,
+  padH: 1,
+  padV: 0,
   color: '#00ffff',
   textColor: 'white',
   bgColor: undefined,
@@ -49,20 +50,23 @@ module.exports = (msg, opts) => {
 
   opts = Object.assign(defaultOpts, opts);
 
+  if (opts.padding) {
+    opts.padH = Math.max(0, opts.padding + 1);
+    opts.padV = Math.max(0, Math.floor(opts.padding / 3));
+  }
+
   let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
 
   let chalkEdge  = setChalk(opts.color, opts.bgColor, opts.bold),
       chalkText  = setChalk(opts.textColor, opts.bgColor, opts.bold);
 
-  let padH       = Math.max(0, opts.padding + 1),
-      padV       = Math.max(0, Math.floor(opts.padding / 3)),
-      midW       = msg.length + (padH * 2),
+  let midW       = msg.length + (opts.padH * 2),
       lineH      = _h.repeat(midW),
       top        = `${_tl}${lineH}${_tr}`,
       btm        = `${_bl}${lineH}${_br}`,
-      left       = _v + ` `.repeat(padH),
-      right      = ` `.repeat(padH) + _v,
-      vSpacer    = `${_v}${' '.repeat(midW)}${_v}\n`.repeat(padV);
+      left       = _v + ` `.repeat(opts.padH),
+      right      = ` `.repeat(opts.padH) + _v,
+      vSpacer    = `${_v}${' '.repeat(midW)}${_v}\n`.repeat(opts.padV);
 
   let outputBefore = chalkEdge(`${top}\n${vSpacer}${left}`),
       outputMsg    = chalkText(msg),

@@ -67,9 +67,22 @@ Sets the weight of the border and message text (_where supported_).
 - Type: `boolean`
 - Default: `false`
 
+### padH
+Sets horizontal space (characters) between the text and the border.
 
-### padding
-Adds extra space between the text and the border. A vertical line of padding is added every 3 spaces of padding.
+- Type: `number`
+- Default: `1`
+
+### padV
+Sets vertical space (lines) between the text and the border.
 
 - Type: `number`
 - Default: `0`
+
+### padding
+Convenience function for setting `padH` and `padV` values with one value.
+
+`padH` is set to one more than the value, and `padV` is set to a rounded-down third of the value. Thus, `padding: 0` will use the default settings listed above.
+
+- Type: `number`
+- Default: `undefined`
