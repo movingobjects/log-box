@@ -3,14 +3,14 @@ const chalk     = require('chalk'),
       pkgConf   = require('pkg-conf'),
       pkgConfig = pkgConf.sync('log-box');
 
-const styles = {
+const STYLES = Object.freeze({
   single: [ '─', '│', '┌', '┐', '└', '┘' ],
   thick:  [ '━', '┃', '┏', '┓', '┗', '┛' ],
   round:  [ '─', '│', '╭', '╮', '╰', '╯' ],
   double: [ '═', '║', '╔', '╗', '╚', '╝' ]
-}
+});
 
-const defaultOpts = {
+const DEFAULT_OPTS = Object.freeze({
   style: 'single',
   padding: {
     top: 0,
@@ -28,18 +28,29 @@ const defaultOpts = {
   textColor: 'white',
   bgColor: undefined,
   bold: false
-}
+});
 
-const mergeOpts = (inline, pkg, defaults) => {
+const processOpts = (inlineOpts) => {
 
   let opts = { };
 
-  if (defaults) opts = Object.assign(opts, defaults);
-  if (pkg)      opts = Object.assign(opts, pkg);
-  if (inline)   opts = Object.assign(opts, inline);
+  opts = Object.assign(opts, DEFAULT_OPTS);
 
-  opts.padding = normSpacing(opts.padding, defaultOpts.padding);
-  opts.margin  = normSpacing(opts.margin,  defaultOpts.margin);
+  if (typeof inlineOpts === 'string') {
+    if (pkgConfig && pkgConfig[inlineOpts]) {
+      opts = Object.assign(opts, pkgConfig[inlineOpts]);
+    }
+  } else {
+    if (pkgConfig && pkgConfig.default) {
+      opts = Object.assign(opts, pkgConfig.default);
+    }
+    if (inlineOpts) {
+      opts = Object.assign(opts, inlineOpts);
+    }
+  }
+
+  opts.padding = normSpacing(opts.padding, DEFAULT_OPTS.padding);
+  opts.margin  = normSpacing(opts.margin,  DEFAULT_OPTS.margin);
 
   return opts;
 
@@ -116,7 +127,7 @@ const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
 
 const createOutput = (msg, opts) => {
 
-    let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
+    let [ _h, _v, _tl, _tr, _bl, _br ] = STYLES[opts.style] || STYLES.default;
 
     let chalkEdge = setChalk(opts.color, opts.bgColor, opts.bold),
         chalkText = setChalk(opts.textColor, opts.bgColor, opts.bold);
@@ -142,7 +153,7 @@ const createOutput = (msg, opts) => {
 
 module.exports = (msg, inlineOpts) => {
 
-  let opts   = mergeOpts(inlineOpts, pkgConfig.default, defaultOpts),
+  let opts   = processOpts(inlineOpts),
       output = createOutput(msg, opts);
 
   console.log(output);
