@@ -2,14 +2,14 @@
 const chalk = require('chalk');
 
 const styles = {
-  default: [ '─', '│', '┌', '┐', '└', '┘' ],
-  thick:   [ '━', '┃', '┏', '┓', '┗', '┛' ],
-  round:   [ '─', '│', '╭', '╮', '╰', '╯' ],
-  double:  [ '═', '║', '╔', '╗', '╚', '╝' ]
+  single: [ '─', '│', '┌', '┐', '└', '┘' ],
+  thick:  [ '━', '┃', '┏', '┓', '┗', '┛' ],
+  round:  [ '─', '│', '╭', '╮', '╰', '╯' ],
+  double: [ '═', '║', '╔', '╗', '╚', '╝' ]
 }
 
 const defaultOpts = {
-  style: 'default',
+  style: 'single',
   padding: 0,
   color: '#00ffff',
   textColor: 'white',
@@ -17,11 +17,9 @@ const defaultOpts = {
   bold: false
 }
 
-const setChalk = (bold, color = 'white', bgColor = undefined) => {
+const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
 
   let c = chalk;
-
-  if (bold) c = c.bold;
 
   if (color) {
     try {
@@ -39,6 +37,10 @@ const setChalk = (bold, color = 'white', bgColor = undefined) => {
     }
   }
 
+  if (bold) {
+    c = c.bold;
+  }
+
   return c;
 
 }
@@ -49,11 +51,11 @@ module.exports = (msg, opts) => {
 
   let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
 
-  let chalkEdge  = setChalk(opts.bold, opts.color, opts.bgColor),
-      chalkText  = setChalk(opts.bold, opts.textColor, opts.bgColor);
+  let chalkEdge  = setChalk(opts.color, opts.bgColor, opts.bold),
+      chalkText  = setChalk(opts.textColor, opts.bgColor, opts.bold);
 
-  let padH       = opts.padding + 1,
-      padV       = Math.floor(opts.padding / 3),
+  let padH       = Math.max(0, opts.padding + 1),
+      padV       = Math.max(0, Math.floor(opts.padding / 3)),
       midW       = msg.length + (padH * 2),
       lineH      = _h.repeat(midW),
       top        = `${_tl}${lineH}${_tr}`,
