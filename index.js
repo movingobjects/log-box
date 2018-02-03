@@ -1,5 +1,5 @@
 
-const chalk = require('chalk');
+const chalk   = require('chalk');
 
 const styles = {
   single: [ '─', '│', '┌', '┐', '└', '┘' ],
@@ -97,33 +97,42 @@ const normSpacing = (spacing, defaults) => {
 
 }
 
+const createOutput = (msg, opts) => {
+
+    let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
+
+    let chalkEdge = setChalk(opts.color, opts.bgColor, opts.bold),
+        chalkText = setChalk(opts.textColor, opts.bgColor, opts.bold);
+
+    let iw  = opts.padding.left + msg.length + opts.padding.right;
+
+    let mt  = '\n'.repeat(opts.margin.top),
+        mb  = '\n'.repeat(opts.margin.bottom),
+        mr  = ' '.repeat(opts.margin.right),
+        ml  = ' '.repeat(opts.margin.left),
+        pr  = ' '.repeat(opts.padding.right),
+        pl  = ' '.repeat(opts.padding.left);
+
+    let lt  = (ml + chalkEdge(_tl + _h.repeat(iw) + _tr) + mr + '\n'),
+        lit = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(opts.padding.top),
+        lm  = (ml + chalkEdge(_v + pl) + chalkText(msg) + chalkEdge(pr + _v) + mr + '\n'),
+        lib = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(opts.padding.bottom),
+        lb  = (ml + chalkEdge(_bl + _h.repeat(iw) + _br) + mr);
+
+    return mt + lt + lit + lm + lib + lb + mb;
+
+}
+
 module.exports = (msg, opts) => {
 
-  opts = Object.assign(Object.assign({}, defaultOpts), opts);
+  let defaults         = Object.assign({}, defaultOpts);
 
-  let padding = normSpacing(opts.padding, defaultOpts.padding),
-      margin  = normSpacing(opts.margin, defaultOpts.margin);
+  let optsNorm         = Object.assign(defaults, opts);
+      optsNorm.padding = normSpacing(optsNorm.padding, defaultOpts.padding),
+      optsNorm.margin  = normSpacing(optsNorm.margin, defaultOpts.margin);
 
-  let [ _h, _v, _tl, _tr, _bl, _br ] = styles[opts.style] || styles.default;
+  let output           = createOutput(msg, optsNorm);
 
-  let chalkEdge = setChalk(opts.color, opts.bgColor, opts.bold),
-      chalkText = setChalk(opts.textColor, opts.bgColor, opts.bold);
-
-  let iw  = padding.left + msg.length + padding.right;
-
-  let mt  = '\n'.repeat(margin.top),
-      mb  = '\n'.repeat(margin.bottom),
-      mr  = ' '.repeat(margin.right),
-      ml  = ' '.repeat(margin.left),
-      pr  = ' '.repeat(padding.right),
-      pl  = ' '.repeat(padding.left);
-
-  let lt  = (ml + chalkEdge(_tl + _h.repeat(iw) + _tr) + mr + '\n'),
-      lit = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(padding.top),
-      lm  = (ml + chalkEdge(_v + pl) + chalkText(msg) + chalkEdge(pr + _v) + mr + '\n'),
-      lib = (ml + chalkEdge(_v + ' '.repeat(iw) + _v) + mr + '\n').repeat(padding.bottom),
-      lb  = (ml + chalkEdge(_bl + _h.repeat(iw) + _br) + mr);
-
-  console.log(mt + lt + lit + lm + lib + lb + mb);
+  console.log(output);
 
 }
