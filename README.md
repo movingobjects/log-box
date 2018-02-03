@@ -47,7 +47,7 @@ logBox('Oh, very nice!', {
 ```js
 {
   "name": "your-project",
-  "version": "0.0.1",
+  "version": "0.1.0",
   ...
   "log-box": {
     "default": {
