@@ -10,6 +10,7 @@ const styles = {
 
 const defaultOpts = {
   style: 'default',
+  padding: 0,
   color: '#00ffff',
   textColor: 'white',
   bgColor: undefined,
@@ -51,13 +52,19 @@ module.exports = (msg, opts) => {
   let chalkEdge  = setChalk(opts.bold, opts.color, opts.bgColor),
       chalkText  = setChalk(opts.bold, opts.textColor, opts.bgColor);
 
-  let lineH      = _h.repeat(msg.length + 2),
+  let padH       = opts.padding + 1,
+      padV       = Math.floor(opts.padding / 3),
+      midW       = msg.length + (padH * 2),
+      lineH      = _h.repeat(midW),
       top        = `${_tl}${lineH}${_tr}`,
-      btm        = `${_bl}${lineH}${_br}`;
+      btm        = `${_bl}${lineH}${_br}`,
+      left       = _v + ` `.repeat(padH),
+      right      = ` `.repeat(padH) + _v,
+      vSpacer    = `${_v}${' '.repeat(midW)}${_v}\n`.repeat(padV);
 
-  let outputBefore = chalkEdge(`${top}\n${_v} `),
+  let outputBefore = chalkEdge(`${top}\n${vSpacer}${left}`),
       outputMsg    = chalkText(msg),
-      outputAfter  = chalkEdge(` ${_v}\n${btm}`);
+      outputAfter  = chalkEdge(`${right}\n${vSpacer}${btm}`);
 
   console.log(outputBefore + outputMsg + outputAfter);
 
