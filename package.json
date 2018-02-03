@@ -1,0 +1,29 @@
+{
+  "name": "log-box",
+  "version": "0.1.0",
+  "description": "Generate box around text in the command line",
+  "author": "Scott Thiessen (http://varyd.io)",
+  "license": "ISC",
+  "homepage": "https://github.com/sccottt/log-box#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sccottt/log-box.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sccottt/log-box/issues"
+  },
+  "keywords": [
+    "frame",
+    "box",
+    "boxes",
+    "border",
+    "outline",
+    "cli",
+    "terminal",
+    "console"
+  ],
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^2.3.0"
+  }
+}
