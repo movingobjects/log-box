@@ -11,7 +11,7 @@ $ npm install log-box
 
 ## Usage
 
-### Default
+### Default options
 
 ```js
 const logBox = require('log-box');
@@ -19,7 +19,7 @@ const logBox = require('log-box');
 logBox('Yes.');
 ```
 
-### Inline style
+### Inline options
 
 ```js
 const logBox = require('log-box');
@@ -40,12 +40,14 @@ logBox('Oh, very nice!', {
 });
 ```
 
-### Configuration set in `package.json`
+### Configuration in `package.json`
 
 `package.json`:
 
-```json
+```js
 {
+  "name": "your-project",
+  "version": "0.0.1",
   ...
   "log-box": {
     "default": {
@@ -64,8 +66,6 @@ logBox('Oh, very nice!', {
   }
 }
 ```
-
-`your-application.js`:
 
 ```js
 const logBox = require('log-box');
