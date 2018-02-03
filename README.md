@@ -16,13 +16,19 @@ const logBox = require('log-box');
 
 logBox('OK, great.');
 
-logBox('Woah!', {
+logBox('Wooaah!', {
   style: 'round',
   color: 'black',
   textColor: 'black',
   bgColor: '#ccff00',
   bold: true,
-  padding: 3
+  margin: {
+    left: 5
+  },
+  padding: {
+    left: 5,
+    bottom: 10
+  }
 });
 
 ```
@@ -73,43 +79,22 @@ Sets the background color of entire box area.
 
 ### Spacing
 
-#### `padH`
-Sets horizontal space (characters) between the text and the border.
-
-- Type: `number`
-- Default: `1`
-
-#### `padV`
-Sets vertical space (lines) between the text and the border.
-
-- Type: `number`
-- Default: `0`
-
-#### `marginTop`
-Sets the number of lines of spacing above the box.
-
-- Type: `number`
-- Default: `0`
-
-#### `marginBottom`
-Sets the number of lines of spacing below the box.
-
-- Type: `number`
-- Default: `1`
-
 #### `padding`
-Convenience function for setting `padH` and `padV` with one value, as follows:
+Sets the space between the text and the box.
 
-`padH` is set to one more than the value, and `padV` is set to a rounded-down third of the value. Thus, `padding: 0` is equivalent to the default settings for `padH` and `padV`.
-
-- Type: `number`
-- Default: `undefined`
+- Type: `object` `number` `array`
+- Allowed values:
+	- `object` applies `top`, `right`, `bottom`, `left` properties of object (any omitted properties retain the default)
+	- `number` applies value to top, right, bottom, and left
+	- `array` maps values similar to [CSS shorthand](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
+- Default: `{ top: 0, right: 1, bottom: 0, left: 1 }`
 
 #### `margin`
-Convenience function for setting `marginTop` and `marginBottom` to the same value.
+Sets the space outside the box.
 
-- Type: `number`
-- Default: `undefined`
+- Type: `object` `number` `array`
+- Allowed values: same as [padding](#padding)
+- Default: `{ top: 0, right: 0, bottom: 1, left: 0 }`
 
 
 ### Other options

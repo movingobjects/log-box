@@ -1,6 +1,6 @@
 {
   "name": "log-box",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Logs console messages inside a nice box",
   "author": "Scott Thiessen (http://varyd.io)",
   "license": "ISC",
@@ -24,6 +24,7 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "chalk": "^2.3.0"
+    "chalk": "^2.3.0",
+    "pkg-conf": "^2.1.0"
   }
 }
