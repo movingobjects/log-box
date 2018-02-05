@@ -26,8 +26,7 @@ const DEFAULT_OPTS = Object.freeze({
   },
   color: 'white',
   textColor: 'white',
-  bgColor: undefined,
-  bold: false
+  bgColor: undefined
 });
 
 const processOpts = (inlineOpts) => {
@@ -97,7 +96,7 @@ const normSpacing = (spacing, defaults) => {
 
 }
 
-const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
+const setChalk = (color = 'white', bgColor = undefined) => {
 
   let c = chalk;
 
@@ -117,10 +116,6 @@ const setChalk = (color = 'white', bgColor = undefined, bold = false) => {
     }
   }
 
-  if (bold) {
-    c = c.bold;
-  }
-
   return c;
 
 }
@@ -129,8 +124,8 @@ const createOutput = (msg, opts) => {
 
     let [ _h, _v, _tl, _tr, _bl, _br ] = STYLES[opts.style] || STYLES.default;
 
-    let chalkEdge = setChalk(opts.color, opts.bgColor, opts.bold),
-        chalkText = setChalk(opts.textColor, opts.bgColor, opts.bold);
+    let chalkEdge = setChalk(opts.color, opts.bgColor),
+        chalkText = setChalk(opts.textColor, opts.bgColor);
 
     let iw  = opts.padding.left + msg.length + opts.padding.right;
 

@@ -29,7 +29,6 @@ logBox('Oh, very nice!', {
   color: 'black',
   textColor: 'black',
   bgColor: '#ccff00',
-  bold: true,
   margin: {
     left: 5
   },
@@ -58,7 +57,6 @@ logBox('Oh, very nice!', {
     },
     "exampleB": {
       "style": "strong",
-      "bold": true,
       "color": "black",
       "textColor": "black",
       "bgColor": "red"
@@ -134,11 +132,3 @@ Sets the spacing outside the box.
 
 - Allowed values: same as [padding](#padding)
 - Default: `{ top: 0, right: 0, bottom: 1, left: 0 }`
-
-
-### Other options
-
-#### `bold` [boolean]
-Sets the weight of the border and message text (_where supported_).
-
-- Default: `false`
