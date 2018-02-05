@@ -85,68 +85,60 @@ logBox('Quite good!', 'exampleB');
 
 ### Border style
 
-#### `style`
+#### `style` [string]
 Sets the border style to the box.
 
-- Type: `string`
-- Values:
+- Default: `"single"`
+- Allowed values:
     - `"single"`
     - `"strong"`
     - `"round"`
     - `"double"`
-- Default: `"single"`
 
 
 ### Colors
 
-#### `color`
+#### `color` [string]
 Sets the border color of the box.
 
-- Type: `string`
+- Default: `"white"`
 - Allowed values:
-    - Hex color value, prefixed with `#` symbol
-    - Valid color keyword, within [CSS Colors Level 4 spec](https://drafts.csswg.org/css-color/#named-colors)
-- Default: `"cyan"`
+    - Hex color value, prefixed with `#` symbol (e.g., `"#ff00ff"`)
+    - Valid color keyword, within [CSS Colors Level 4 spec](https://drafts.csswg.org/css-color/#named-colors) (e.g., `"cyan"`)
 
-#### `textColor`
+#### `textColor` [string]
 Sets the color message text.
 
-- Type: `string`
-- Allowed values: same as [color](#color)
 - Default: `"white"`
+- Allowed values: same as [color](#color)
 
-#### `bgColor`
+#### `bgColor` [string]
 Sets the background color of entire box area.
 
-- Type: `string`
-- Allowed values: same as [color](#color)
 - Default: `undefined` *(no background color)*
-
+- Allowed values: same as [color](#color)
 
 ### Spacing
 
-#### `padding`
+#### `padding` [object] [number] [array]
 Sets the space between the text and the box.
 
-- Type: `object` `number` `array`
 - Allowed values:
-	- `object` applies `top`, `right`, `bottom`, `left` properties of object (any omitted properties retain the default)
-	- `number` applies value to top, right, bottom, and left
-	- `array` maps values similar to [CSS shorthand](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
+	- `object` — applies `top`, `right`, `bottom`, `left` properties of object (any omitted properties retain the default)
+	- `number` — applies value to top, right, bottom, and left
+	- `array` — maps values similar to [CSS shorthand](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
 - Default: `{ top: 0, right: 1, bottom: 0, left: 1 }`
 
-#### `margin`
+#### `margin` [object] [number] [array]
 Sets the space outside the box.
 
-- Type: `object` `number` `array`
 - Allowed values: same as [padding](#padding)
 - Default: `{ top: 0, right: 0, bottom: 1, left: 0 }`
 
 
 ### Other options
 
-#### `bold`
+#### `bold` [boolean]
 Sets the weight of the border and message text (_where supported_).
 
-- Type: `boolean`
 - Default: `false`

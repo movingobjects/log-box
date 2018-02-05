@@ -24,7 +24,7 @@ const DEFAULT_OPTS = Object.freeze({
     bottom: 1,
     left: 0
   },
-  color: '#00ffff',
+  color: 'white',
   textColor: 'white',
   bgColor: undefined,
   bold: false
