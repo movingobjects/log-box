@@ -57,7 +57,7 @@ logBox('Oh, very nice!', {
       "color": "#90f"
     },
     "exampleB": {
-      "style": "thick",
+      "style": "strong",
       "bold": true,
       "color": "black",
       "textColor": "black",
@@ -91,7 +91,7 @@ Sets the border style to the box.
 - Type: `string`
 - Values:
     - `"single"`
-    - `"thick"`
+    - `"strong"`
     - `"round"`
     - `"double"`
 - Default: `"single"`

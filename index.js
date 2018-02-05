@@ -5,7 +5,7 @@ const chalk     = require('chalk'),
 
 const STYLES = Object.freeze({
   single: [ '─', '│', '┌', '┐', '└', '┘' ],
-  thick:  [ '━', '┃', '┏', '┓', '┗', '┛' ],
+  strong:  [ '━', '┃', '┏', '┓', '┗', '┛' ],
   round:  [ '─', '│', '╭', '╮', '╰', '╯' ],
   double: [ '═', '║', '╔', '╗', '╚', '╝' ]
 });
