@@ -86,7 +86,7 @@ logBox('Quite good!', 'exampleB');
 ### Border style
 
 #### `style` [string]
-Sets the border style to the box.
+Sets the border style of the box.
 
 - Default: `"single"`
 - Allowed values:
@@ -107,13 +107,13 @@ Sets the border color of the box.
     - Valid color keyword, within [CSS Colors Level 4 spec](https://drafts.csswg.org/css-color/#named-colors) (e.g., `"cyan"`)
 
 #### `textColor` [string]
-Sets the color message text.
+Sets the message text color.
 
 - Default: `"white"`
 - Allowed values: same as [color](#color)
 
 #### `bgColor` [string]
-Sets the background color of entire box area.
+Sets the background color of the entire box area, including message text.
 
 - Default: `undefined` *(no background color)*
 - Allowed values: same as [color](#color)
@@ -121,7 +121,7 @@ Sets the background color of entire box area.
 ### Spacing
 
 #### `padding` [object] [number] [array]
-Sets the space between the text and the box.
+Sets the spacing inside the box, between the border and the message text.
 
 - Allowed values:
 	- `object` — applies `top`, `right`, `bottom`, `left` properties of object (any omitted properties retain the default)
@@ -130,7 +130,7 @@ Sets the space between the text and the box.
 - Default: `{ top: 0, right: 1, bottom: 0, left: 1 }`
 
 #### `margin` [object] [number] [array]
-Sets the space outside the box.
+Sets the spacing outside the box.
 
 - Allowed values: same as [padding](#padding)
 - Default: `{ top: 0, right: 0, bottom: 1, left: 0 }`
