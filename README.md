@@ -1,6 +1,8 @@
 # Log box
 Logs console messages inside a nice box
 
+![Example console output](/resources/example.png)
+
 
 ## Install
 
@@ -88,10 +90,30 @@ Sets the border style of the box.
 
 - Default: `"single"`
 - Allowed values:
-    - `"single"`
-    - `"strong"`
-    - `"round"`
-    - `"double"`
+  - `"single"`
+  ```
+  ┌────────┐
+  │ Hello! │
+  └────────┘
+  ```
+  - `"double"`
+  ```
+  ╔════════╗
+  ║ Hello! ║
+  ╚════════╝
+  ```
+  - `"round"`
+  ```
+  ╭────────╮
+  │ Hello! │
+  ╰────────╯
+  ```
+  - `"strong"`
+  ```
+  ┏━━━━━━━━┓
+  ┃ Hello! ┃
+  ┗━━━━━━━━┛
+  ```
 
 
 ### Colors
