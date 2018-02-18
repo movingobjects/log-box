@@ -4,13 +4,13 @@
   "description": "Logs console messages inside a nice box",
   "author": "Scott Thiessen (http://varyd.io)",
   "license": "ISC",
-  "homepage": "https://github.com/sccottt/log-box#readme",
+  "homepage": "https://github.com/movingobjects/log-box#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sccottt/log-box.git"
+    "url": "git+https://github.com/movingobjects/log-box.git"
   },
   "bugs": {
-    "url": "https://github.com/sccottt/log-box/issues"
+    "url": "https://github.com/movingobjects/log-box/issues"
   },
   "keywords": [
     "frame",
